@@ -110,3 +110,15 @@
 - **Caveat:** no browser on the build machine, so verification was
   code/HTTP-level only — no screenshots. Visual check recommended on a
   machine with a browser before deploying.
+
+## 2026-09-17 — Repo made public; local Docker dev setup
+
+- **Request:** make the repo public so anyone can download and build locally;
+  add a build script that sets up Docker and builds a container for local dev.
+- **Spec:** repo visibility flipped to public via
+  `gh repo edit --visibility public --accept-visibility-change-consequences`.
+  New files: `Dockerfile` (caddy:2-alpine serving `site/` on :80 — same web
+  server as the Phase 1 VPS, minus TLS), `infra/docker/Caddyfile`
+  (container variant), `scripts/local-dev.sh` (installs Docker on
+  Debian/Ubuntu if missing, points macOS users at Docker Desktop, then
+  builds `credits-gg:local` and runs it on http://localhost:8080).

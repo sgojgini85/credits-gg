@@ -1,0 +1,8 @@
+# Caddy config for the local dev container (plain HTTP on :80).
+# Mirrors infra/Caddyfile minus TLS and hardening headers.
+
+:80 {
+	root * /srv/credits-gg
+	try_files {path} /index.html
+	file_server
+}
