@@ -1,0 +1,19 @@
+# Caddyfile for credits.gg Phase 1 (static demo)
+# DOMAIN is substituted by infra/setup.sh at provision time.
+
+{$DOMAIN} {
+	root * /srv/credits-gg
+	try_files {path} /index.html
+	file_server
+
+	header {
+		# Basic hardening headers for a static site
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+	}
+
+	# Don't leak hidden files
+	@hidden path */.*
+	respond @hidden 404
+}
