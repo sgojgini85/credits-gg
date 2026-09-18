@@ -92,3 +92,21 @@
   (originals, collections, remasters, ports, patches, DLC, announced).
   Source: `god-of-war-franchise-research.json`. Release-tracking policy and
   verified per-release facts are in `V1-DECISIONS.md` §3a–3b.
+
+## 2026-09-17 — First local materialization (`site/`)
+
+- **Request:** build the demo locally so it can be tested before deploying.
+- **Spec:** faithful static rebuild of the V1 demo in `site/` per the specs
+  above: `index.html` + `css/theme.css` + `js/app.js` (hash router) +
+  `js/views.js` (all views) + `data/*.json` (gow/witcher/gta/samples/
+  franchises) + `assets/provenance.json`. No CDNs, no external
+  fonts/images/scripts, no build step; serve with
+  `python3 -m http.server` from `site/`.
+- **Verification:** node --check on all JS; all JSON validated; 50 view
+  renders through a stubbed-fetch Node harness (every page incl. WT in
+  4 states) with zero throws; 7 data-integrity checks passed; all assets
+  HTTP 200; zero external URLs in HTML/CSS/JS. Two bugs fixed: pill-filter
+  state reset on re-render, nested-button double-action on studio cards.
+- **Caveat:** no browser on the build machine, so verification was
+  code/HTTP-level only — no screenshots. Visual check recommended on a
+  machine with a browser before deploying.
